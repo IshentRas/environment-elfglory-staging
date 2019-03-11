@@ -18,6 +18,15 @@ pipeline {
         }
       }
     }
+    stage('QA Environment') {
+      steps {
+        container('maven') {
+          dir('env') {
+            sh 'echo Cool'
+          }
+        }
+      }
+    }
     stage('Update Environment') {
       when {
         branch 'master'
