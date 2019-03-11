@@ -1,14 +1,29 @@
-expose:
-  Args: 
-    - --v
-    - 4
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
-
+PipelineSecrets:
+  DockerConfig: '{"auths": {"docker-registry.default.svc:5000": {"auth": "c2VydmljZWFjY291bnQ6ZXlKaGJHY2lPaUpTVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpxZUNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKcVpXNXJhVzV6TFhndGNtVm5hWE4wY25rdGRHOXJaVzR0Tm1obWRHY2lMQ0pyZFdKbGNtNWxkR1Z6TG1sdkwzTmxjblpwWTJWaFkyTnZkVzUwTDNObGNuWnBZMlV0WVdOamIzVnVkQzV1WVcxbElqb2lhbVZ1YTJsdWN5MTRMWEpsWjJsemRISjVJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5elpYSjJhV05sTFdGalkyOTFiblF1ZFdsa0lqb2lOVEl3WkdFNU5XWXRORFF4TkMweE1XVTVMVGd5T0dNdE5USTFOREF3WkRZM05EZGhJaXdpYzNWaUlqb2ljM2x6ZEdWdE9uTmxjblpwWTJWaFkyTnZkVzUwT21wNE9tcGxibXRwYm5NdGVDMXlaV2RwYzNSeWVTSjkuazF4X0E0U3EyaExocTBHX2VfWmxnU1BwU250eVR5cWkxV0FXd1BTalJRWGxhVC1oMDlkZVhFRHRqdU1VTzZIb1dmU1N1ZWl6UUJtMWZSaWY3Y2VlOTRldXh4ZElvOXp0YXFXMXdfbGxMN2VaN0lGcTBhZUpYWlZ3eFZoeXJlbVZtMmxHWTUzaDVFemhSQzdaTUhRUk5xYm9OakNNXzJQYTdjeG5zc0d4Wm54UWQ3SkxPeHM0TlBwQ0piUmMwd3FWalJ4NFJlTHZ1M29abkt1Q0llNkF0VHZsR2UwbVVCbkczNEVjOGtJNlNVazlOdlh6NWhkbUZpVHI5Q0FLZkJtbDE0S0twNThVbXBJTm1lUkIxdldXd292UDF6T3FWRWhwREt0ODlOMUVvbUJ0WFczRk4tWHRkb1d6cXNfUDFSYzN5REgyRmNadG5NN2M5Y0NMOW1wSW5B"}}}'
 cleanup:
-  Args: 
-    - --cleanup
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild:
+  enabled: null
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --v
+  - 4
+  config:
+    domain: 192.168.122.100.nip.io
+    exposer: Route
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        DOCKER_REGISTRY: docker-registry.default.svc:5000
+        TILLER_NAMESPACE: kube-system
+  enabled: null
+prow: {}
