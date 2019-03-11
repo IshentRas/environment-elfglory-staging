@@ -22,7 +22,7 @@ pipeline {
       steps {
         container('maven') {
           dir('env') {
-            sh 'echo Cool'
+            sh 'echo "Super Cool!!!!"'
           }
         }
       }
